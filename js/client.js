@@ -3,6 +3,12 @@
  */
 
 var Client = {};
+var movement = function(spaces){
+    return spaces;
+}
+var movePlayerSpaces = function(spaces){
+    console.log("Cliente esta andando pra valer as " +spaces+" casas");
+}
 Client.socket = io.connect();
 
 Client.sendTest = function(){
@@ -16,6 +22,7 @@ Client.askNewPlayer = function(){
 
 Client.sendClick = function(x,y){
   Client.socket.emit('click',{x:x,y:y});
+  //Client.socket.emit('moveSpaces',{spaces:movement(3)});
 };
 
 Client.socket.on('newplayer',function(data){
@@ -34,6 +41,16 @@ Client.socket.on('allplayers',function(data){
     Client.socket.on('remove',function(id){
         Game.removePlayer(id);
     });
+    Client.socket.on('moveSpacesResponse',function(data){
+        console.log("errr");
+        movePlayerSpaces(data.space);
+    });
+    
 });
+
+
+
+
+
 
 

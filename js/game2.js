@@ -8,7 +8,7 @@ Game.init = function(){
 
 Game.preload = function() {
     game.load.tilemap('map', 'assets/map/example_map.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.spritesheet('tileset', 'assets/map/tilesheet.png',32,32);
+    game.load.spritesheet('tileset', 'assets/map/tilesheet2.png',32,32);
     game.load.image('sprite','assets/sprites/sprite.png');
    // game.load.spritesheet('button', 'assets/sprites/basic-buttons-pack.png', 193, 71);
 };

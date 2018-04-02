@@ -1,0 +1,6 @@
+{
+    "name": "Hypatia",
+    "short_name": "Hypatia",
+    "start_url": "/",
+    "display":"standalone"
+  }

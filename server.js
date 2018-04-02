@@ -7,8 +7,12 @@ app.use('/css',express.static(__dirname + '/css'));
 app.use('/js',express.static(__dirname + '/js'));
 app.use('/assets',express.static(__dirname + '/assets'));
 
-app.get('/',function(req,res){
+app.get('/first',function(req,res){
     res.sendFile(__dirname+'/index.html');
+});
+
+app.get('/second',function(req,res){
+    res.sendFile(__dirname+'/index2.html');
 });
 
 server.lastPlayderID = 0;
@@ -34,6 +38,12 @@ io.on('connection',function(socket){
             socket.player.y = data.y;
             io.emit('move',socket.player);
         });
+        socket.on('moveSpaces',function (data){
+            console.log("Player andou " + data.spaces + " casas");
+            io.emit('moveSpacesResponse',{mesage:"Servidor recebeu a solicitação para andar",space:data.spaces});
+        });
+
+        
 
         socket.on('disconnect',function(){
             io.emit('remove',socket.player.id);
@@ -43,6 +53,9 @@ io.on('connection',function(socket){
     socket.on('test',function(){
         console.log('test received');
     });
+    socket.on('andar',function(){
+        console.log("andou");
+    })
 });
 
 function getAllPlayers(){
