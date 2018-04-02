@@ -15,7 +15,7 @@ app.get('/second',function(req,res){
     res.sendFile(__dirname+'/index2.html');
 });
 
-if ('serviceWorker' in navigator) {
+/*if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
       navigator.serviceWorker.register('/sw.js').then(function(registration) {
         // Registration was successful
@@ -26,7 +26,23 @@ if ('serviceWorker' in navigator) {
       });
     });
   }
+  var CACHE_NAME = 'my-site-cache-v1';
+var urlsToCache = [
+  '/',
+  '/styles/main.css',
+  '/script/main.js'
+];
 
+self.addEventListener('install', function(event) {
+  // Perform install steps
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(function(cache) {
+        console.log('Opened cache');
+        return cache.addAll(urlsToCache);
+      })
+  );
+});*/
 server.lastPlayderID = 0;
 
 server.listen(process.env.PORT || 10000,function(){
