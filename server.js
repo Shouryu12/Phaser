@@ -15,6 +15,18 @@ app.get('/second',function(req,res){
     res.sendFile(__dirname+'/index2.html');
 });
 
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }).catch(function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+
 server.lastPlayderID = 0;
 
 server.listen(process.env.PORT || 10000,function(){
@@ -38,10 +50,10 @@ io.on('connection',function(socket){
             socket.player.y = data.y;
             io.emit('move',socket.player);
         });
-        socket.on('moveSpaces',function (data){
+        /*socket.on('moveSpaces',function (data){
             console.log("Player andou " + data.spaces + " casas");
             io.emit('moveSpacesResponse',{mesage:"Servidor recebeu a solicitação para andar",space:data.spaces});
-        });
+        });*/
 
         
 

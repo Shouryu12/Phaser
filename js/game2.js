@@ -10,25 +10,26 @@ Game.preload = function() {
     game.load.tilemap('map', 'assets/map/example_map.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.spritesheet('tileset', 'assets/map/tilesheet2.png',32,32);
     game.load.image('sprite','assets/sprites/sprite.png');
-   // game.load.spritesheet('button', 'assets/sprites/basic-buttons-pack.png', 193, 71);
+    game.load.spritesheet('buttons', 'assets/sprites/button.png', 193, 71);
 };
-//var button;
+
 Game.create = function(){
     Game.playerMap = {};
     var testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
     testKey.onDown.add(Client.sendTest, this);
     var map = game.add.tilemap('map');
-    map.addTilesetImage('tilesheet', 'tileset'); // tilesheet is the key of the tileset in map's JSON file
+    map.addTilesetImage('tilesheet', 'tileset');
     var layer;
     for(var i = 0; i < map.layers.length; i++) {
         layer = map.createLayer(i);
     }
-    layer.inputEnabled = true; // Allows clicking on the map ; it's enough to do it on the last layer
+    layer.inputEnabled = true;
     layer.events.onInputUp.add(Game.getCoordinates, this);
-    Client.askNewPlayer();
-  //  button = game.add.button(game.world.centerX - 95, 400, 'button', actionOnClick, this, 2, 1, 0);
-
-   
+    var button = game.add.button(game.world.centerX-95, game.world.centerY+100,
+         'buttons', function() {
+        console.log("worked!");    
+        }, this, 0, 1, 0);
+    Client.askNewPlayer();   
 };
 
 Game.getCoordinates = function(layer,pointer){
@@ -58,23 +59,5 @@ Game.addText = function(text){
 
     text = game.add.text(0, 0, text, style);
 };
-
-function up() {
-    console.log('button up', arguments);
-}
-
-function over() {
-    console.log('button over');
-}
-
-function out() {
-    console.log('button out');
-}
-function actionOnClick () {
-
-    console.log("Baby, you're all that I want When you're lyin' here in my arms I'm findin' it hard to believe We're in heaven");
-    //background.visible =! background.visible;
-
-}
 
 
